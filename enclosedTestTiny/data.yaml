@@ -1,0 +1,31 @@
+path: V:/PollinatorINaturalistData/enclosedTestTiny/dataset
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: aglais_urticae
+  1: anthaxia_species
+  2: apis_mellifera
+  3: bombus_lapidarius
+  4: bombus_pascuorum
+  5: bombus_sylvarum
+  6: bombus_terrestris
+  7: chrysogaster_solstitialis
+  8: cryptocephalus_species
+  9: eristalis_arbustorum
+  10: eristalis_intricaria
+  11: eristalis_pertinax
+  12: eristalis_similis
+  13: eristalis_tenax
+  14: helophilus_hybridus
+  15: helophilus_pendulus
+  16: helophilus_trivittatus
+  17: melanostoma_mellinum
+  18: myathropa_florea
+  19: pieris_brassicae
+  20: pieris_rapae
+  21: pyrophaena_granditarsis
+  22: sericomyia_silentis
+  23: sphaerophoria_scripta
+  24: syritta_pipiens

@@ -1,0 +1,5 @@
+{
+  "save_dir": "V:\\PollinatorINaturalistData\\enclosedTest\\runs\\yolo_pollinators",
+  "last_weights": "V:\\PollinatorINaturalistData\\enclosedTest\\runs\\yolo_pollinators\\weights\\last.pt",
+  "best_weights": "V:\\PollinatorINaturalistData\\enclosedTest\\runs\\yolo_pollinators\\weights\\best.pt"
+}
