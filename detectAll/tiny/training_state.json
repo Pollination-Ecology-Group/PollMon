@@ -1,0 +1,6 @@
+{
+  "save_dir": "V:\\PollinatorINaturalistData\\detectAll\\tiny\\runs\\yolo_detectall_tiny",
+  "last_weights": "V:\\PollinatorINaturalistData\\detectAll\\tiny\\runs\\yolo_detectall_tiny\\weights\\last.pt",
+  "best_weights": "V:\\PollinatorINaturalistData\\detectAll\\tiny\\runs\\yolo_detectall_tiny\\weights\\best.pt",
+  "epochs_completed": 0
+}

@@ -112,19 +112,18 @@ class OverlayApp:
                 result = user32.SetWindowDisplayAffinity(self._hwnd, WDA_EXCLUDEFROMCAPTURE)
                 
                 if result:
-                    print("[Overlay] ✓ API exclusion successful (WDA_EXCLUDEFROMCAPTURE)")
+                    print("[Overlay] [OK] API exclusion active (WDA_EXCLUDEFROMCAPTURE)")
                     return True
                 
-                # Try WDA_MONITOR fallback
                 WDA_MONITOR = 0x00000001
                 result = user32.SetWindowDisplayAffinity(self._hwnd, WDA_MONITOR)
                 if result:
-                    print("[Overlay] ✓ API exclusion successful (WDA_MONITOR fallback)")
+                    print("[Overlay] [OK] API exclusion active (WDA_MONITOR fallback)")
                     return True
                 
                 import ctypes
                 error = ctypes.get_last_error()
-                print(f"[Overlay] ✗ API exclusion failed (error {error})")
+                print(f"[Overlay] [FAIL] API exclusion failed (error {error})")
                 return False
             
             def _try_layered_exclusion(self, user32) -> bool:
@@ -146,11 +145,11 @@ class OverlayApp:
                 )
                 
                 if result:
-                    print("[Overlay] ✓ Layered window exclusion applied")
+                    print("[Overlay] [OK] Layered window exclusion applied")
                     return True
                 
                 error = ctypes.get_last_error()
-                print(f"[Overlay] ✗ Layered exclusion failed (error {error})")
+                print(f"[Overlay] [FAIL] Layered exclusion failed (error {error})")
                 return False
             
             def _try_clickthrough_exclusion(self, user32) -> bool:
@@ -166,11 +165,11 @@ class OverlayApp:
                 result = user32.SetWindowLongW(self._hwnd, GWL_EXSTYLE, new_style)
                 
                 if result or user32.GetWindowLongW(self._hwnd, GWL_EXSTYLE) == new_style:
-                    print("[Overlay] ✓ Click-through exclusion applied")
+                    print("[Overlay] [OK] Click-through exclusion applied")
                     return True
                 
                 error = ctypes.get_last_error()
-                print(f"[Overlay] ✗ Click-through exclusion failed (error {error})")
+                print(f"[Overlay] [FAIL] Click-through exclusion failed (error {error})")
                 return False
 
             def set_tracks(self, tracks: List[TrackedObject]) -> None:

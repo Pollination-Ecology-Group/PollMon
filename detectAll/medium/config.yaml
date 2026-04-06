@@ -1,0 +1,110 @@
+paths:
+  source_images_dir: V:/PollinatorINaturalistData/extractedImagesIreenTest
+  backgrounds_dir: V:/PollinatorINaturalistData/BACKGROUNDS
+  output_dataset_dir: V:/PollinatorINaturalistData/detectAll/medium/dataset
+  data_yaml: V:/PollinatorINaturalistData/detectAll/medium/data.yaml
+  runs_dir: V:/PollinatorINaturalistData/detectAll/medium/runs
+  classes_file: V:/PollinatorINaturalistData/extractedImagesIreenTest/classes.txt
+
+dataset:
+  train_split: 0.80
+  val_split: 0.15
+  test_split: 0.05
+  seed: 8288
+  include_unlabeled: false
+  io_workers: 8
+  image_extensions:
+    - .jpg
+    - .jpeg
+    - .png
+  augmentations:
+    enabled: true
+    count_per_image: 1
+    blur_probability: 0.3
+    blur_radius_range: [0.8, 2.0]
+    darken_probability: 0.3
+    darken_factor_range: [0.6, 0.9]
+
+train:
+  model: yolo26m.pt
+  imgsz: 640
+  time_minutes: 300
+  batch: 8
+  device: 0
+  workers: 12
+  cache: disk
+  patience: 100
+  optimizer: AdamW
+  cos_lr: true
+  amp: true
+  close_mosaic: 15
+  seed: 1337
+  deterministic: false
+  name: yolo_detectall_medium
+  extra_args:
+    lr0: 0.002
+    lrf: 0.01
+    warmup_epochs: 5.0
+    warmup_momentum: 0.5
+    warmup_bias_lr: 0.001
+    mosaic: 1.0
+    mixup: 0.15
+    copy_paste: 0.0
+    close_mosaic: 15
+    hsv_h: 0.015
+    hsv_s: 0.7
+    hsv_v: 0.4
+    fliplr: 0.5
+    flipud: 0.1
+    scale: 0.5
+    translate: 0.1
+    degrees: 15.0
+    shear: 2.0
+    perspective: 0.0005
+    erasing: 0.15
+    nbs: 64
+    rect: false
+    multi_scale: false
+    plots: true
+    save_period: 5
+    val: true
+
+infer:
+  model_path: V:/PollinatorINaturalistData/detectAll/medium/runs/yolo_detectall_medium/weights/best.pt
+  device: 0
+  imgsz: 640
+  conf: 0.22
+  iou: 0.4
+  max_det: 300
+  agnostic_nms: true
+  half: true
+
+overlay:
+  monitor_index: 1
+  capture_scale: 0.5
+  target_fps: 10
+  line_thickness: 2
+  font_scale: 0.7
+  box_color: [0, 255, 0]
+  text_color: [255, 255, 255]
+  text_bg_color: [0, 0, 0]
+  transparent_color: magenta
+  opacity: 1.0
+  exit_hotkey_poll_ms: 100
+  same_class_merge_threshold: 0.30
+  same_class_discard_threshold: 0.85
+  tracker_iou_threshold: 0.25
+  tracker_min_detection_confidence: 0.15
+  tracker_min_hits: 4
+  tracker_max_age_tentative: 4
+  tracker_max_coasting_frames: 12
+  tracker_min_confidence: 0.14
+  tracker_velocity_decay: 0.92
+  tracker_confidence_decay: 0.94
+  tracker_confidence_buffer_frames: 20
+  tracker_motion_history_size: 10
+  tracker_idle_threshold_px: 5.0
+  tracker_moving_threshold_px: 30.0
+  capture_exclusion_method: "api"
+  show_track_id: false
+  show_velocity: false
