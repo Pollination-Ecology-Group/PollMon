@@ -12,6 +12,7 @@ dataset:
   test_split: 0.05
   seed: 8288
   include_unlabeled: false
+  max_images_per_class: 800
   io_workers: 8
   image_extensions:
     - .jpg

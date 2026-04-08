@@ -206,9 +206,32 @@ def main() -> None:
     if abs((train_ratio + val_ratio) - 1.0) > 0.0001 and (train_ratio + val_ratio) > 1.0:
         raise ValueError("train_split + val_split must be <= 1.0")
 
+    max_per_class = int(dataset_config.get("max_images_per_class", 0))  # 0 = no cap
+
     images_by_class = list_images_by_class(source_dir, image_extensions)
 
-    # Add backgrounds from separate directory if configured
+    # For non-negative classes: remove bg_image_* files (backgrounds mixed into
+    # species folders) and keep only images that have a non-empty label file.
+    for class_name in list(images_by_class.keys()):
+        if is_negative_sample_folder(class_name):
+            continue
+        filtered = []
+        for img in images_by_class[class_name]:
+            if img.stem.startswith("bg_image_"):
+                continue  # background duplicate — skip
+            lbl = img.with_suffix(".txt")
+            if not lbl.exists() or not lbl.read_text(encoding="utf-8").strip():
+                continue  # no bounding-box label — skip
+            filtered.append(img)
+        before = len(images_by_class[class_name])
+        if max_per_class > 0 and len(filtered) > max_per_class:
+            random.seed(seed)  # deterministic cap
+            random.shuffle(filtered)
+            filtered = filtered[:max_per_class]
+        images_by_class[class_name] = filtered
+        print(f"  {class_name}: {before} -> {len(filtered)} (labeled, capped)")
+
+    # Add backgrounds from separate directory (once only)
     if backgrounds_dir and backgrounds_dir.exists():
         bg_images = list_images_flat(backgrounds_dir, image_extensions)
         if bg_images:

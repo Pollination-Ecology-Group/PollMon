@@ -28,7 +28,6 @@ enclosedTest/runs/yolo_pollinators/*
 enclosedTest/runs/yolo_pollinators/weights/*
 !enclosedTest/runs/yolo_pollinators/weights/.gitkeep
 !enclosedTest/runs/yolo_pollinators/weights/best.pt
-!enclosedTest/runs/yolo_pollinators/weights/last.pt
 
 !enclosedTestTiny/runs/
 !enclosedTestTiny/runs/yolo_pollinators_tiny/
@@ -37,7 +36,6 @@ enclosedTestTiny/runs/yolo_pollinators_tiny/*
 enclosedTestTiny/runs/yolo_pollinators_tiny/weights/*
 !enclosedTestTiny/runs/yolo_pollinators_tiny/weights/.gitkeep
 !enclosedTestTiny/runs/yolo_pollinators_tiny/weights/best.pt
-!enclosedTestTiny/runs/yolo_pollinators_tiny/weights/last.pt
 
 !detectAll/
 !detectAll/**
@@ -57,7 +55,6 @@ detectAll/medium/runs/yolo_detectall_medium/*
 detectAll/medium/runs/yolo_detectall_medium/weights/*
 !detectAll/medium/runs/yolo_detectall_medium/weights/.gitkeep
 !detectAll/medium/runs/yolo_detectall_medium/weights/best.pt
-!detectAll/medium/runs/yolo_detectall_medium/weights/last.pt
 
 !detectAll/tiny/runs/
 !detectAll/tiny/runs/yolo_detectall_tiny/
@@ -66,4 +63,3 @@ detectAll/tiny/runs/yolo_detectall_tiny/*
 detectAll/tiny/runs/yolo_detectall_tiny/weights/*
 !detectAll/tiny/runs/yolo_detectall_tiny/weights/.gitkeep
 !detectAll/tiny/runs/yolo_detectall_tiny/weights/best.pt
-!detectAll/tiny/runs/yolo_detectall_tiny/weights/last.pt
