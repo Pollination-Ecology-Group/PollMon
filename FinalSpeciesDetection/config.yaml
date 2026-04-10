@@ -1,0 +1,131 @@
+paths:
+  source_images_dir: V:/PollinatorINaturalistData/extractedImagesIreenTest
+  backgrounds_dir: V:/PollinatorINaturalistData/BACKGROUNDS
+  output_dataset_dir: V:/PollinatorINaturalistData/FinalSpeciesDetection/dataset
+  runs_dir: V:/PollinatorINaturalistData/FinalSpeciesDetection/runs
+  classes_file: V:/PollinatorINaturalistData/extractedImagesIreenTest/classes.txt
+
+dataset:
+  train_split: 0.70
+  val_split: 0.15
+  test_split: 0.15
+  seed: 8288
+  include_unlabeled: false
+  io_workers: 8
+  image_extensions:
+    - .jpg
+    - .jpeg
+    - .png
+  scale_augmentation:
+    enabled: true
+    zoom_in_count: 1
+    zoom_out_count: 0
+    zoom_in_crop_fraction: 0.30
+    zoom_out_pad_fraction: 0.50
+  color_augmentation:
+    enabled: false
+    blur_probability: 0.3
+    blur_radius_range: [0.8, 2.0]
+    darken_probability: 0.3
+    darken_factor_range: [0.6, 0.9]
+
+train:
+  model: yolo26s-cls.pt
+  epochs: 300
+  time_minutes: 300
+  imgsz: 448
+  batch: 48
+  device: 0
+  require_cuda: true
+  cuda_device_index: 0
+  matmul_precision: high
+  allow_tf32: true
+  workers: 12
+  cache: disk
+  patience: 50
+  cos_lr: true
+  optimizer: AdamW
+  amp: true
+  name: yolo_species_cls
+  seed: 1337
+  deterministic: false
+  extra_args:
+    hsv_h: 0.015
+    hsv_s: 0.7
+    hsv_v: 0.4
+    fliplr: 0.5
+    flipud: 0.1
+    scale: 0.5
+    translate: 0.1
+    degrees: 10.0
+    erasing: 0.1
+    plots: true
+    save_period: 10
+    val: true
+
+infer:
+  detection_model_path: V:/PollinatorINaturalistData/detectAll/medium/runs/yolo_detectall_medium/weights/best.pt
+  classification_model_path: V:/PollinatorINaturalistData/FinalSpeciesDetection/runs/yolo_species_cls/weights/best.pt
+  device: 0
+  det_imgsz: 640
+  cls_imgsz: 448
+  det_conf: 0.25
+  det_iou: 0.4
+  cls_conf: 0.3
+  half: true
+  crop_padding: 0.30
+
+video:
+  det_imgsz: 1280
+  det_conf: 0.33
+  det_iou: 0.4
+  cls_imgsz: 448
+  cls_conf: 0.33
+  crop_padding: 0.30
+  half: true
+  codec: mp4v
+  output_suffix: _annotated
+  coast_seconds: 2.0
+  # Display smoothing — EMA on rendered bboxes
+  display_pos_alpha: 0.55
+  display_size_alpha: 0.20
+  # Tracker
+  tracker_iou_threshold: 0.3
+  tracker_center_distance_factor: 1.5
+  tracker_min_detection_confidence: 0.25
+  tracker_min_hits: 2
+  tracker_max_age_tentative: 3
+  tracker_max_coasting_frames: 20
+  tracker_min_confidence: 0.1
+  tracker_velocity_decay: 0.95
+  tracker_confidence_decay: 0.95
+  same_class_merge_threshold: 0.30
+  same_class_discard_threshold: 0.85
+
+overlay:
+  monitor_index: 1
+  capture_scale: 0.5
+  target_fps: 60
+  box_color: [0, 255, 0]
+  text_color: [255, 255, 255]
+  text_bg_color: [0, 0, 0]
+  line_thickness: 2
+  font_scale: 1.0
+  show_track_id: false
+  show_velocity: false
+  capture_exclusion_method: api
+  exit_hotkey_poll_ms: 100
+  tracker_iou_threshold: 0.3
+  tracker_min_detection_confidence: 0.25
+  tracker_min_hits: 3
+  tracker_max_age_tentative: 3
+  tracker_max_coasting_frames: 15
+  tracker_min_confidence: 0.1
+  tracker_velocity_decay: 0.95
+  tracker_confidence_decay: 0.92
+  same_class_merge_threshold: 0.30
+  same_class_discard_threshold: 0.85
+  tracker_confidence_buffer_frames: 20
+  tracker_motion_history_size: 10
+  tracker_idle_threshold_px: 5.0
+  tracker_moving_threshold_px: 30.0
